@@ -13,6 +13,10 @@ namespace KarateBooking.Application.DTO
         public DateTime EndDate { get; set; }
         public string EventType { get; set; } = "";
         public string EventStatus { get; set; } = "";
+        public decimal Price { get; set; }
+        public int Capacity { get; set; }
+        public int ReservedCount { get; set; }
+        public int AvailableCount { get; set; }
         public static EventDto FromEntity(EventEntity entity)
         {
             return new EventDto
@@ -23,7 +27,11 @@ namespace KarateBooking.Application.DTO
                 StartDate = entity.StartDate,
                 EndDate = entity.EndDate,
                 EventType = entity.EventType.ToString(),
-                EventStatus = entity.EventStatus.ToString()
+                EventStatus = entity.EventStatus.ToString(),
+                Price = entity.Price,
+                Capacity = entity.Capacity,
+                ReservedCount = entity.ReservedCount,
+                AvailableCount = entity.AvailableCount
             };
         }
     }

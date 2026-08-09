@@ -20,7 +20,7 @@ namespace KarateBooking.Application.CQRS.Event.Commands.Create
         public async Task<EventDto> Handle(CreateEventCommand command)
         {
             var eventEntity = EventEntity.Create(command.Name,command.Description, command.StartDate,
-                command.EndDate, command.EventType);
+                command.EndDate, command.EventType, command.Price, command.Capacity);
             await _eventRepository.AddAsync(eventEntity);
             return EventDto.FromEntity(eventEntity);
         }

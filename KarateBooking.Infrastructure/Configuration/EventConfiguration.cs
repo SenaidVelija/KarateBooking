@@ -31,6 +31,10 @@ namespace KarateBooking.Infrastructure.Configuration
             builder.Property(e=>e.EventStatus)
                 .HasConversion<string>()
                 .IsRequired();
+            builder.Property(e => e.Price)
+                .IsRequired();
+            builder.Property(e => e.Capacity)
+                .IsRequired();
         }
     }
 }

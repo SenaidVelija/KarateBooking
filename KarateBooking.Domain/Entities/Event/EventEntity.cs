@@ -15,11 +15,15 @@ namespace KarateBooking.Domain.Entities.Event
         public DateTime EndDate { get; private set; }
         public EventType EventType { get; private set; }
         public EventStatus EventStatus { get; private set; }
+        public decimal Price { get; private set; }
+        public int Capacity { get; private set; }
+        public int ReservedCount { get; private set; }
+        public int AvailableCount => Capacity - ReservedCount;
 
         private EventEntity() { }
 
         private EventEntity(string name, string description, DateTime startDate,
-            DateTime endDate, EventType eventType)
+            DateTime endDate, EventType eventType, decimal price, int capacity)
         {
      
             Name = name;
@@ -28,9 +32,12 @@ namespace KarateBooking.Domain.Entities.Event
             EndDate = endDate;
             EventType = eventType;
             EventStatus = EventStatus.Zakazan;
+            Price = price;
+            Capacity = capacity;
+            ReservedCount = 0;
         }
         public static EventEntity Create(string name, string description, DateTime startDate,
-            DateTime endDate, EventType eventType)
+            DateTime endDate, EventType eventType, decimal price, int capacity)
         {
             if (string.IsNullOrWhiteSpace(name))
                 throw new ValidationException("Morate unijeti ime dogadjaja");
@@ -38,10 +45,10 @@ namespace KarateBooking.Domain.Entities.Event
                 throw new ValidationException("Datum zavrsetka dogadjaja ne moze biti prije datuma pocetka");
             if (startDate < DateTime.Now)
                 throw new ValidationException("Datum pocetka ne moze biti u proslosti");
-            return new EventEntity(name, description, startDate, endDate, eventType);
+            return new EventEntity(name, description, startDate, endDate, eventType, price, capacity);
         }
         public void UpdateDetails(string name, string description, DateTime startDate,
-            DateTime endDate, EventType eventType)
+            DateTime endDate, EventType eventType, decimal price, int capacity)
         {
             if (EventStatus != EventStatus.Zakazan)
                 throw new BusinessRuleException("Samo dogadjaj u statusu Zakazan moze biti izmijenjen.");
@@ -58,6 +65,8 @@ namespace KarateBooking.Domain.Entities.Event
             StartDate = startDate;
             EndDate = endDate;
             EventType = eventType;
+            Price = price;
+            Capacity = capacity;
         }
         public void Cancel()
         {
@@ -71,17 +80,21 @@ namespace KarateBooking.Domain.Entities.Event
                 throw new BusinessRuleException("Ne mozete obrisati dogadjaj koji je u toku");
             
         }
-        public void MarkAsFinished()
+        public void ReserveSeats(int quantity)
         {
-            if (EventStatus != EventStatus.UToku)
-                throw new BusinessRuleException("Samo dogadjaj koji je u toku moze biti oznacen kao zavrsen");
-            EventStatus=EventStatus.Zavrsen;
+            if (quantity <= 0)
+                throw new ValidationException("Kolicina mora biti veca od nule.");
+            if (quantity > AvailableCount)
+                throw new BusinessRuleException($"Nema dovoljno slobodnih mjesta. Dostupno: {AvailableCount}");
+
+            ReservedCount += quantity;
         }
-        public void MarkAsInProgress()
+
+        public void ReleaseSeats(int quantity)
         {
-            if (EventStatus != EventStatus.Zakazan)
-                throw new BusinessRuleException("Samo dogadjaj koji je u statusu Zakazan moze preci u status U toku");
-            EventStatus = EventStatus.UToku;
+            ReservedCount -= quantity;
+            if (ReservedCount < 0) ReservedCount = 0;
         }
+
     }
 }

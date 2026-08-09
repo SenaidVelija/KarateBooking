@@ -40,6 +40,10 @@
             label3 = new Label();
             label4 = new Label();
             label5 = new Label();
+            txtPrice = new TextBox();
+            txtCapacity = new TextBox();
+            label6 = new Label();
+            label7 = new Label();
             SuspendLayout();
             // 
             // txtName
@@ -81,17 +85,16 @@
             // 
             // btnSave
             // 
-            btnSave.Location = new Point(12, 409);
+            btnSave.Location = new Point(12, 440);
             btnSave.Name = "btnSave";
             btnSave.Size = new Size(94, 29);
             btnSave.TabIndex = 5;
             btnSave.Text = "Save";
             btnSave.UseVisualStyleBackColor = true;
-            
             // 
             // btnCancel
             // 
-            btnCancel.Location = new Point(168, 409);
+            btnCancel.Location = new Point(168, 440);
             btnCancel.Name = "btnCancel";
             btnCancel.Size = new Size(94, 29);
             btnCancel.TabIndex = 6;
@@ -143,11 +146,47 @@
             label5.TabIndex = 11;
             label5.Text = "To";
             // 
+            // txtPrice
+            // 
+            txtPrice.Location = new Point(12, 394);
+            txtPrice.Name = "txtPrice";
+            txtPrice.Size = new Size(125, 27);
+            txtPrice.TabIndex = 12;
+            // 
+            // txtCapacity
+            // 
+            txtCapacity.Location = new Point(158, 394);
+            txtCapacity.Name = "txtCapacity";
+            txtCapacity.Size = new Size(125, 27);
+            txtCapacity.TabIndex = 13;
+            // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Location = new Point(12, 374);
+            label6.Name = "label6";
+            label6.Size = new Size(41, 20);
+            label6.TabIndex = 14;
+            label6.Text = "Price";
+            // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.Location = new Point(158, 374);
+            label7.Name = "label7";
+            label7.Size = new Size(66, 20);
+            label7.TabIndex = 15;
+            label7.Text = "Capacity";
+            // 
             // EventFormDialog
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(311, 450);
+            ClientSize = new Size(311, 481);
+            Controls.Add(label7);
+            Controls.Add(label6);
+            Controls.Add(txtCapacity);
+            Controls.Add(txtPrice);
             Controls.Add(label5);
             Controls.Add(label4);
             Controls.Add(label3);
@@ -181,5 +220,9 @@
         private Label label3;
         private Label label4;
         private Label label5;
+        private TextBox txtPrice;
+        private TextBox txtCapacity;
+        private Label label6;
+        private Label label7;
     }
 }

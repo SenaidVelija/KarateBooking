@@ -19,5 +19,7 @@ namespace KarateBooking.Application.CQRS.Event.Commands.Update
         public DateTime EndDate { get; set; }
         public EventType EventType { get; set; }
         public EventStatus EventStatus { get; set; }
+        public decimal Price { get; set; }
+        public int Capacity { get; set; }
     }
 }

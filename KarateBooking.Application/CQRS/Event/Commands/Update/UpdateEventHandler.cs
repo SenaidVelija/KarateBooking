@@ -22,7 +22,7 @@ namespace KarateBooking.Application.CQRS.Event.Commands.Update
             if (eventEntity == null)
                 throw new NotFoundException("Dogadjaj s tim ID-jem ne postoji");
             eventEntity.UpdateDetails(command.Name, command.Description, command.StartDate,
-                command.EndDate, command.EventType);
+                command.EndDate, command.EventType, command.Price, command.Capacity);
             await _eventRepository.UpdateAsync(eventEntity);
             return EventDto.FromEntity(eventEntity);
         }

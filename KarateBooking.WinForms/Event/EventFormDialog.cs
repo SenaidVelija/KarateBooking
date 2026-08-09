@@ -39,6 +39,8 @@ namespace KarateBooking.WinForms
                 dtpStartDate.Value = existingEvent.StartDate;
                 dtpEndDate.Value = existingEvent.EndDate;
                 cmbEventType.SelectedItem = Enum.Parse<EventType>(existingEvent.EventType);
+                txtPrice.Text=existingEvent.Price.ToString();
+                txtCapacity.Text=existingEvent.Capacity.ToString();
             }
             else
             {
@@ -62,7 +64,9 @@ namespace KarateBooking.WinForms
                         Description = txtDescription.Text,
                         StartDate = dtpStartDate.Value,
                         EndDate = dtpEndDate.Value,
-                        EventType = selectedType
+                        EventType = selectedType,
+                        Price = int.Parse(txtPrice.Text),
+                        Capacity = int.Parse(txtCapacity.Text)
                     });
                 }
                 else
@@ -74,7 +78,10 @@ namespace KarateBooking.WinForms
                         Description = txtDescription.Text,
                         StartDate = dtpStartDate.Value,
                         EndDate = dtpEndDate.Value,
-                        EventType = selectedType    
+                        EventType = selectedType,
+                        Price=int.Parse(txtPrice.Text),
+                        Capacity=int.Parse(txtCapacity.Text)
+                        
 
                     });
                    
